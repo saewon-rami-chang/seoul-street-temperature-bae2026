@@ -1,0 +1,6 @@
+{
+  "description": "Temporal holdout: train 2023-2024 (all sensors), test 2025",
+  "script": "code/train_temporal.py",
+  "args": [],
+  "output": "results/Full_Model"
+}

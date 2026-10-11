@@ -1,0 +1,9 @@
+{
+  "description": "No shadow fraction (194 features)",
+  "script": "code/train_loro.py",
+  "args": [
+    "--exclude",
+    "shadow"
+  ],
+  "output": "results/Ablation_shadow"
+}

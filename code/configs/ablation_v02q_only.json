@@ -1,0 +1,11 @@
+{
+  "description": "Train and evaluate on V02Q sensors only",
+  "script": "code/train_loro.py",
+  "args": [
+    "--sensors",
+    "v02q",
+    "--out-dir",
+    "Ablation_v02q_only"
+  ],
+  "output": "results/Ablation_v02q_only"
+}

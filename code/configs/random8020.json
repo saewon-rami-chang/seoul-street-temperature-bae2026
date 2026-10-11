@@ -1,0 +1,6 @@
+{
+  "description": "Random 80/20 sensor-level holdout (published test-sensor list)",
+  "script": "code/train_random8020.py",
+  "args": [],
+  "output": "results/Random8020_Outputs"
+}

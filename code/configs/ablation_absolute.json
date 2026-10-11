@@ -1,0 +1,9 @@
+{
+  "description": "Absolute temperature target instead of the residual",
+  "script": "code/train_loro.py",
+  "args": [
+    "--target",
+    "absolute"
+  ],
+  "output": "results/Ablation_absolute"
+}

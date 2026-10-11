@@ -1,0 +1,13 @@
+# Dataset (deposited on Zenodo, see README) and generated outputs
+data/*.parquet
+results/
+tables/
+extra_inputs/
+# Build tools used to assemble this release
+_build/
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store

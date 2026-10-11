@@ -1,0 +1,9 @@
+{
+  "description": "LORO rerun used as the reference for all ablation comparisons",
+  "script": "code/train_loro.py",
+  "args": [
+    "--out-dir",
+    "Reference_GPU"
+  ],
+  "output": "results/Reference_GPU"
+}

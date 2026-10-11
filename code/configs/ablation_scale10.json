@@ -1,0 +1,11 @@
+{
+  "description": "Single scale: 38 non-spatial + 40 spatial features at 10 m only (78)",
+  "script": "code/train_loro.py",
+  "args": [
+    "--exclude",
+    "scale100,scale250,scale1000",
+    "--out-dir",
+    "Ablation_scale10"
+  ],
+  "output": "results/Ablation_scale10"
+}

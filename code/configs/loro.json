@@ -1,0 +1,6 @@
+{
+  "description": "Spatial LORO, 6 regions, 1 km buffers (published run)",
+  "script": "code/train_loro.py",
+  "args": [],
+  "output": "results/Discovery_Outputs"
+}

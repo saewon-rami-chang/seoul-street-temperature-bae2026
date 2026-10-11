@@ -1,0 +1,9 @@
+{
+  "description": "Meteorological + temporal features only (38)",
+  "script": "code/train_loro.py",
+  "args": [
+    "--exclude",
+    "spatial"
+  ],
+  "output": "results/Ablation_spatial"
+}

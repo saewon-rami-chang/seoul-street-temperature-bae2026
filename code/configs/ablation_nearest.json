@@ -1,0 +1,11 @@
+{
+  "description": "Nearest-neighbour raster sampling. NEEDS a nearest-neighbour-sampled feature table, which is not released",
+  "script": "code/train_loro.py",
+  "args": [
+    "--cache-dir",
+    "data_nearest",
+    "--out-dir",
+    "Ablation_nearest"
+  ],
+  "output": "results/Ablation_nearest"
+}

@@ -1,0 +1,9 @@
+{
+  "description": "Combined: train 2023-2024 outside the region, test the region in 2025",
+  "script": "code/train_loro.py",
+  "args": [
+    "--holdout-years",
+    "2025"
+  ],
+  "output": "results/Holdout_ST"
+}

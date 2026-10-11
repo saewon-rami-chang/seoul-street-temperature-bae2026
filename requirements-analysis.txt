@@ -1,0 +1,5 @@
+# Extra packages for code/analysis/ (figures, maps and the feature-coverage check), on top of requirements.txt.
+-r requirements.txt
+matplotlib==3.10.8
+geopandas==1.1.2
+rasterio==1.5.0

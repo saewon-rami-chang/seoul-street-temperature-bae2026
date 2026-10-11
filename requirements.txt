@@ -1,0 +1,13 @@
+# Python 3.13 (final runs: 3.13.5 on macOS for the published models, 3.13 on Windows for the GPU runs).
+# Versions are those of the environment that produced the final runs.
+xgboost==3.2.0
+polars==1.38.1
+pandas==2.2.3
+numpy==2.1.3
+scikit-learn==1.6.1
+scipy==1.15.3
+pyarrow==19.0.0
+pyproj==3.7.2
+shap==0.51.0
+# GPU: the scripts use CUDA automatically when XGBoost finds a GPU and fall back to CPU otherwise.
+# The pip wheel of xgboost 3.2.0 includes CUDA support (NVIDIA driver with CUDA 12 required).
