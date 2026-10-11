@@ -1,10 +1,12 @@
 # Seoul street-level air temperature (BAE 2026)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23296486.svg)](https://doi.org/10.5281/zenodo.23296486)
+
 Training data and model code for:
 
 > Chang, S.-W., Yoon, S. (2026). Any coordinate, any time: city-wide prediction of street-level air temperature across Seoul. *Building and Environment*, under revision (BAE-D-26-07198).
 
-**Data:** https://doi.org/10.5281/zenodo.23296486 (Zenodo). Put the three `.parquet` files in `data/`.
+**Data:** [doi:10.5281/zenodo.23296486](https://doi.org/10.5281/zenodo.23296486) (Zenodo). Put the three `.parquet` files in `data/`.
 
 ## Quick start
 
@@ -37,11 +39,6 @@ One row per sensor-hour (KST). The columns are described in [`data/columns.md`](
 | 6 | `loro` | `results/Discovery_Outputs/Metrics/` |
 | 7, 8 | `temporal_2025` | `results/Full_Model/Temporal_Holdout/` |
 | A.5 | `random8020` | `results/Random8020_Outputs/Metrics/TempStratified.csv` |
-| 9 | TO CONFIRM | |
-| A.7 | TO CONFIRM | |
-| A.8 | TO CONFIRM | |
-| A.11 | TO CONFIRM | |
-| A.12 | TO CONFIRM | |
 
 The other runs are ablations (`ablation_*`), the combined spatio-temporal holdout (`holdout_st`) and SHAP (`shap_temporal`). Confidence intervals and the revision tables come from `code/analysis/` (`pip install -r requirements-analysis.txt`); each script lists its outputs in its first line.
 
