@@ -4,7 +4,7 @@ Training data and model code for:
 
 > Chang, S.-W., Yoon, S. (2026). Any coordinate, any time: city-wide prediction of street-level air temperature across Seoul. *Building and Environment*, under revision (BAE-D-26-07198).
 
-**Data:** ZENODO_LINK (DOI ZENODO_DOI). Put the three `.parquet` files in `data/`.
+**Data:** https://doi.org/10.5281/zenodo.23296486 (Zenodo). Put the three `.parquet` files in `data/`.
 
 ## Quick start
 
