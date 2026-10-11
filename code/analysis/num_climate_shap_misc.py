@@ -1,17 +1,13 @@
-"""SHAP categories (S1, S2), counts and missing inputs (M1-M4), seasonal climate (C1, needs extra_inputs/)."""
+"""SHAP categories (S1, S2), counts and missing inputs (M1-M4)."""
 
 import json
 
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import polars as pl
 
-from numlib import NUMBERS, PRED, SEOUL, TRAIN, MONTH_TO_SEASON, cache_units, save, seoul_data
+from numlib import NUMBERS, PRED, TRAIN, cache_units, save, seoul_data
 
-CACHE = SEOUL / "02_cache/chunks"
 LAG = {"aws_temp_lag_1h", "aws_temp_lag_2h", "aws_temp_lag_3h", "aws_temp_lag_6h", "aws_temp_mean_6h",
        "aws_temp_mean_24h", "aws_temp_trend_1h", "aws_temp_trend_3h", "aws_temp_trend_24h", "daily_temp_swing",
        "wind_u_mean_3h", "wind_u_mean_6h", "wind_v_mean_3h", "wind_v_mean_6h", "solar_sum_6h", "solar_sum_12h",
@@ -30,31 +26,6 @@ def category(f):
     return "Meteorological"
 
 
-def climate():
-    a = pl.read_parquet(SEOUL / "01_preprocess/03_asos/asos_clean.parquet",
-                        columns=["station_id", "datetime", "temperature", "humidity", "wind_speed",
-                                 "precipitation", "solar_radiation"]).to_pandas()
-    a = a[(a.station_id.astype(str) == "108")]
-    a["datetime"] = pd.to_datetime(a["datetime"])
-    a = a[a.datetime.dt.year.between(2023, 2025)]
-    a["date"] = a.datetime.dt.date
-    a["season"] = a.datetime.dt.month.map(MONTH_TO_SEASON)
-    daily = a.groupby("date").agg(tmax=("temperature", "max"), tmin=("temperature", "min"),
-                                  precip=("precipitation", "sum"), season=("season", "first"),
-                                  year=("datetime", lambda s: s.dt.year.iloc[0]))
-    rows = []
-    for s in ["Winter (DJF)", "Spring (MAM)", "Summer (JJA)", "Autumn (SON)"]:
-        h = a[a.season == s]; d = daily[daily.season == s]
-        rows.append({"Season": s, "Mean_T_C": h.temperature.mean(), "Mean_daily_Tmax_C": d.tmax.mean(),
-                     "Mean_daily_Tmin_C": d.tmin.mean(), "Mean_RH_pct": h.humidity.mean(),
-                     "Mean_wind_ms": h.wind_speed.mean(),
-                     "Precip_mm_per_season_mean_over_years": d.groupby("year").precip.sum().mean(),
-                     "Hours": len(h)})
-    df = pd.DataFrame(rows)
-    df.insert(0, "Source", "ASOS 108 Seoul, 2023-01-01 to 2025-12-31 (hourly, QC'd)")
-    return df
-
-
 def shap():
     d = pd.read_csv(TRAIN / "Full_Model/SHAP/SHAP_Full.csv")
     d["Category"] = d.Feature.map(category)
@@ -70,17 +41,6 @@ def shap():
                           "Share_pct": np.nan,
                           "Manuscript_text_pct": np.nan,
                           "Published_Fig9a_pct": 100 - sum(fig9a.values())}])
-    order = list(cat.Category)
-    colors = {"Rolling/Lag": "#2166AC", "Morphology": "#B2182B", "Temporal": "#4DAF4A", "Shadow": "#666666",
-              "Land Cover": "#984EA3", "Meteorological": "#FF7F00"}
-    fig, ax = plt.subplots(figsize=(3.6, 4))
-    bars = ax.bar(range(len(cat)), cat.Share_pct, color=[colors[c] for c in order], edgecolor="k", lw=0.5)
-    for b, v in zip(bars, cat.Share_pct):
-        ax.text(b.get_x() + b.get_width() / 2, v + 0.4, f"{v:.1f}%", ha="center", fontsize=8, fontweight="bold")
-    ax.set_xticks(range(len(cat))); ax.set_xticklabels(order, rotation=40, ha="right", fontsize=8)
-    ax.set_ylabel("Share of total mean |SHAP| (%)"); ax.set_title("(a) SHAP importance by feature category", fontsize=9)
-    ax.spines[["top", "right"]].set_visible(False)
-    plt.close(fig)  # figure: full corrected Fig. 9 is drawn by fig09_shap_corrected.py
     return pd.concat([cat, note]), d[["Feature", "Category", "Mean_Abs_SHAP", "Share_pct"]]
 
 
@@ -150,14 +110,13 @@ def misc():
 
 
 def main():
-    save(climate(), "C1_seasonal_climate_ASOS108.csv", "%.2f")
     s1, s2 = shap()
     save(s1, "S1_shap_categories.csv", "%.2f"); save(s2, "S2_shap_feature_category_map.csv")
     hp, tc, miss, counts = misc()
     save(hp, "M1_hyperparameters_used.csv"); save(tc, "M2_loro_training_counts.csv")
     save(miss, "M3_missing_inputs.csv", "%.3f"); save(counts, "M4_sensor_counts.csv")
     pd.set_option("display.width", 200)
-    for f in ["C1_seasonal_climate_ASOS108.csv", "S1_shap_categories.csv", "M1_hyperparameters_used.csv",
+    for f in ["S1_shap_categories.csv", "M1_hyperparameters_used.csv",
               "M2_loro_training_counts.csv", "M4_sensor_counts.csv"]:
         print(f"\n{f}\n", pd.read_csv(NUMBERS / f).to_string(index=False))
     print("\nM3 (top 8 + any):\n", pd.read_csv(NUMBERS / "M3_missing_inputs.csv").head(8).to_string(index=False),

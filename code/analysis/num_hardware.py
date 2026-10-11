@@ -2,18 +2,14 @@
 
 import json
 
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import polars as pl
 from scipy import stats
 from scipy.spatial import cKDTree
 
-from numlib import NUMBERS, PRED, REGION_LABEL, SEOUL, TRAIN, load_pred, metrics, save, scan_cache, sensor_ci
+from numlib import NUMBERS, PRED, REGION_LABEL, TRAIN, load_pred, metrics, save, scan_cache, sensor_ci
 
-CACHE = SEOUL / "02_cache/chunks"
 BUFFER_M = 1000
 N_TOP = 15
 rng = np.random.default_rng(42)
@@ -140,31 +136,6 @@ def h4_h5(sm, feat_df, feats):
                            "N_V02Q": int((oc3 == 0).sum()), "N_OC3": int(oc3.sum())})
         del df
     return pd.DataFrame(h4), pd.DataFrame(h5)
-
-
-def figure(sm, bounds):
-    import geopandas as gpd
-    out = NUMBERS / "figures"; out.mkdir(exist_ok=True)
-    fig, ax = plt.subplots(figsize=(7, 6))
-    try:
-        gpd.read_file(SEOUL / "03_training_new/seoul_boundary.geojson").to_crs(5179).boundary.plot(
-            ax=ax, color="0.4", lw=0.6)
-    except Exception as e:
-        print("  boundary not drawn:", e)
-    for g, c, m in (("V02Q", "#4C72B0", "o"), ("OC3", "#DD8452", "^")):
-        s = sm[sm.generation == g]
-        ax.scatter(s.x, s.y, s=7 if g == "V02Q" else 14, c=c, marker=m, lw=0, label=f"{g} (n={len(s)})", zorder=3)
-    for key, b in bounds.items():
-        ax.add_patch(plt.Rectangle((b["x_min"], b["y_min"]), b["x_max"] - b["x_min"], b["y_max"] - b["y_min"],
-                                   fill=False, ec="k", lw=1.2, zorder=4))
-        ax.add_patch(plt.Rectangle((b["x_min"] - BUFFER_M, b["y_min"] - BUFFER_M), b["x_max"] - b["x_min"] + 2 * BUFFER_M,
-                                   b["y_max"] - b["y_min"] + 2 * BUFFER_M, fill=False, ec="k", lw=0.6, ls="--", zorder=4))
-        ax.text(b["x_min"], b["y_max"] + 150, REGION_LABEL[key], fontsize=7, zorder=5)
-    ax.set_aspect("equal"); ax.set_xticks([]); ax.set_yticks([])
-    ax.legend(loc="lower left", fontsize=8, frameon=False)
-    ax.set_title("S-DoT hardware generation and LORO regions (solid: holdout, dashed: 1 km buffer)", fontsize=9)
-    fig.tight_layout(); fig.savefig(out / "H_generation_map.png", dpi=250); plt.close(fig)
-    print(f"  -> numbers/figures/H_generation_map.png")
 
 
 def main():

@@ -9,9 +9,9 @@ from numlib import HERE, NUMBERS, TRAIN, save, scan_cache
 RUNS = {"Main (CPU, published)": TRAIN / "Discovery_Outputs", "Reference_GPU": TRAIN / "Reference_GPU",
         "Ablation_spatial": TRAIN / "Ablation_spatial", "Ablation_shadow": TRAIN / "Ablation_shadow",
         "Ablation_absolute": TRAIN / "Ablation_absolute",
-        "Ablation_nearest": TRAIN / "Ablation_nearest", "Ablation_shadow_svf": TRAIN / "Ablation_shadow_svf",
+        "Ablation_shadow_svf": TRAIN / "Ablation_shadow_svf",
         **{f"Ablation_scale{s}": TRAIN / f"Ablation_scale{s}" for s in ("10", "100", "250", "1000")}}
-RUNS = {k: d for k, d in RUNS.items() if (d / "Predictions/Predictions.parquet").exists()}  # skip runs not yet back
+RUNS = {k: d for k, d in RUNS.items() if (d / "Predictions/Predictions.parquet").exists()}  # runs present in results/
 # also compare single-scale runs with the no-spatial run
 EXTRA_REF = {f"Ablation_scale{s}": "Ablation_spatial" for s in ("10", "100", "250", "1000")}
 # V02Q-only runs: compared in the V02Q variants only

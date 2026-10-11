@@ -2,7 +2,6 @@
 
 from pathlib import Path
 
-import os
 import sys
 
 import numpy as np
@@ -14,10 +13,8 @@ sys.path.insert(0, str(HERE.parent))  # code/
 import seoul_data  # noqa: E402
 
 TRAIN = seoul_data.default_results_dir()   # training outputs: results/<run>/ (written by code/train_*.py)
-# inputs that are not released (see README)
-SEOUL = Path(os.environ.get("SEOUL_EXTRA_INPUTS", HERE.parents[1] / "extra_inputs")).expanduser().resolve()
 NUMBERS = HERE.parents[1] / "tables"
-(NUMBERS / "figures").mkdir(parents=True, exist_ok=True)
+NUMBERS.mkdir(exist_ok=True)
 
 
 def cache_units():

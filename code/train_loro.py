@@ -727,8 +727,7 @@ if __name__ == "__main__":
                         help="Sensor subset for training and evaluation (v02q = serial prefix V02Q). "
                              "Requires --out-dir when not 'all'.")
     parser.add_argument("--cache-dir", type=str, default=None,
-                        help="Feature table folder (default: data/ or $SEOUL_DATA_DIR), e.g. a "
-                             "nearest-neighbour-sampled table (not released). Requires --out-dir.")
+                        help="Feature table folder (default: data/ or $SEOUL_DATA_DIR). Requires --out-dir.")
     parser.add_argument("--out-dir", type=str, default=None,
                         help="Output folder (default: Discovery_Outputs for the main run, "
                              "otherwise derived from the flags)")

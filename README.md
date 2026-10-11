@@ -16,11 +16,11 @@ python scripts/run_config.py            # list runs
 python scripts/run_config.py loro       # run one -> results/
 ```
 
-The training scripts use the GPU when XGBoost finds one. The paper's main models were trained on a CPU and the ablations on an RTX 4070; compare each ablation with `reference_gpu`.
+The scripts use a GPU if XGBoost finds one. Ablations were run on a GPU; compare them with `reference_gpu`.
 
 ## Data
 
-One row per sensor-hour (KST). The columns are described in [`data/columns.md`](data/columns.md). Features are stored as float32, so rebuilt tables can differ from the paper in the last digit.
+One row per sensor-hour (KST). Columns: [`data/columns.md`](data/columns.md).
 
 | Year | Rows | Sensors |
 |---|---:|---:|
@@ -38,12 +38,11 @@ One row per sensor-hour (KST). The columns are described in [`data/columns.md`](
 | 7, 8 | `temporal_2025` | `results/Full_Model/Temporal_Holdout/` |
 | A.5 | `random8020` | `results/Random8020_Outputs/Metrics/TempStratified.csv` |
 
-The other runs are ablations (`ablation_*`), the combined spatio-temporal holdout (`holdout_st`) and SHAP (`shap_temporal`). Confidence intervals and the revision tables come from `code/analysis/` (`pip install -r requirements-analysis.txt`); each script lists its outputs in its first line.
+Other runs: ablations (`ablation_*`), combined spatio-temporal holdout (`holdout_st`) and SHAP (`shap_temporal`). Confidence intervals and the remaining tables: `code/analysis/`.
 
 ## Not included
 
-- The feature-extraction pipeline, the trained models and the prediction service.
-- Inputs needed by `num_coverage.py`, `num_section45.py`, `num_baseline_sensitivity.py`, table C1 and `ablation_nearest`.
+The feature-extraction pipeline, the trained models and the prediction service.
 
 ## Sources
 

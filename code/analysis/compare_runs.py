@@ -18,7 +18,6 @@ RUNS = {  # label -> output folder (results/<run>/ written by code/train_loro.py
     "Ablation_shadow":       TRAIN / "Ablation_shadow",
     "Ablation_absolute":     TRAIN / "Ablation_absolute",
     "Holdout_ST":            TRAIN / "Holdout_ST",
-    "Ablation_nearest":      TRAIN / "Ablation_nearest",
     "Ablation_shadow_svf":   TRAIN / "Ablation_shadow_svf",
     "Ablation_v02q_only":    TRAIN / "Ablation_v02q_only",
     "Ablation_scale10":      TRAIN / "Ablation_scale10",
@@ -72,7 +71,6 @@ PAIRS = [  # (label, run_a, col_a, run_b, col_b): CI of metric(b) - metric(a) on
     ("Absolute target - Reference",            "Reference_GPU", "pred_temp", "Ablation_absolute", "pred_temp"),
     ("Reference - AWS baseline",               "Reference_GPU", "aws_temp_interp", "Reference_GPU", "pred_temp"),
     ("Holdout_ST - its AWS baseline",          "Holdout_ST", "aws_temp_interp", "Holdout_ST", "pred_temp"),
-    ("Nearest-neighbour features - Reference (bilinear)", "Reference_GPU", "pred_temp", "Ablation_nearest", "pred_temp"),
     ("Neither SVF nor shadow - Reference",     "Reference_GPU", "pred_temp", "Ablation_shadow_svf", "pred_temp"),
     ("Neither SVF nor shadow - No shadow (SVF only)", "Ablation_shadow", "pred_temp", "Ablation_shadow_svf", "pred_temp"),
     # restrict run a to run b's sensors (V02Q-only run)
