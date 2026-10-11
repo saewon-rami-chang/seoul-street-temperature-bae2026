@@ -1,12 +1,10 @@
 # Seoul street-level air temperature (BAE 2026)
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23296486.svg)](https://doi.org/10.5281/zenodo.23296486)
-
 Training data and model code for:
 
 > Chang, S.-W., Yoon, S. (2026). Any coordinate, any time: city-wide prediction of street-level air temperature across Seoul. *Building and Environment*, under revision (BAE-D-26-07198).
 
-**Data:** [doi:10.5281/zenodo.23296486](https://doi.org/10.5281/zenodo.23296486) (Zenodo). Put the three `.parquet` files in `data/`.
+**Data:** Mendeley Data, [doi:10.17632/k6zrf554bh.1](https://doi.org/10.17632/k6zrf554bh.1). Put the three `.parquet` files in `data/`.
 
 ## Quick start
 
